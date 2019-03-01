@@ -1,12 +1,87 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
-    <exclude-output />
-    <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
-    </content>
-    <orderEntry type="inheritedJdk" />
-    <orderEntry type="sourceFolder" forTests="false" />
-  </component>
-</module>
+package doubly;
 
+public class DoublyLinkedList {
+    Node head;
+    int size;
+
+    public static void main(String[] args) {
+        DoublyLinkedList obj = new DoublyLinkedList();
+        for (int i = 0; i < 5; i++) {
+            Node n1 = new Node();
+            n1.data = (1000+(1000*i));
+            obj.insert(n1);
+        }
+        Node n = new Node();
+        n.data = (1000+(1000*5));
+        obj.display();
+        obj.delete();
+        obj.display();
+        if(obj.search(n))
+        {
+            System.out.println("element found");
+        }
+        else
+        {
+            System.out.println("element Not found");
+        }
+    }
+    boolean search(Node node)
+    {
+        boolean response = false;
+        Node temp = head;
+        while(temp != null)
+        {
+            if(temp.data == node.data)
+            {
+                response = true;
+                break;
+            }
+            temp = temp.next;
+        }
+        return response;
+    }
+    void insert(Node node) {
+        System.out.println("inserting node " + node.data + " at last");
+        if (head == null) {
+            head = node;
+        } else {
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            node.previous = temp;
+            temp.next = node;
+        }
+    }
+
+    void display() {
+        System.out.println("Doubly linkedlist");
+        Node temp = head;
+        System.out.print("null<------->");
+        while (temp != null) {
+            System.out.print(temp.data + "<------>");
+            temp = temp.next;
+        }
+        System.out.println("null");
+    }
+
+    void delete() {
+        if (head == null) {
+            System.out.println("empty list");
+        } else {
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            System.out.println("deleting node " + temp.data + " from last");
+            temp = temp.previous;
+            temp.next = null;
+        }
+    }
+}
+
+class Node {
+    int data;
+    Node next;
+    Node previous;
+}
